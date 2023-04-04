@@ -1,32 +1,39 @@
 #include "lists.h"
 
 /**
- * free_listint_safe - Frees a listint_t list safely.
- * @h: A pointer to a pointer to the head of the list.
+ * free_listint_safe - Frees a listint_t list, even if it has a loop.
+ * @h: A double pointer to the head of the listint_t list.
  *
  * Return: The size of the list that was freed.
  */
 size_t free_listint_safe(listint_t **h)
 {
-	listint_t *current = *h, *next;
-	size_t count = 0;
+	listint_t *current = *h;
+	listint_t *next = NULL;
+	size_t size = 0;
 
 	while (current != NULL)
 	{
 		next = current->next;
-		count++;
-		free(current);
 
-		/* Detect and break loops in the list */
-		if (current <= next)
+		/* Check if the current node has been visited before */
+		if (current < next)
 		{
-			*h = NULL;
+			size++;
+			free(current);
+			current = NULL;
+		}
+		else
+		{
+			size++;
+			free(current);
 			break;
 		}
 
 		current = next;
 	}
 
-	return (count);
-}
+	*h = NULL; /* Set the head to NULL */
 
+	return (size);
+}
