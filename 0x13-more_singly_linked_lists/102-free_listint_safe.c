@@ -16,7 +16,7 @@ size_t free_listint_safe(listint_t **h)
 	{
 		next = current->next;
 
-		/* Check if the current node has been visited before */
+
 		if (current < next)
 		{
 			size++;
@@ -33,7 +33,7 @@ size_t free_listint_safe(listint_t **h)
 		current = next;
 	}
 
-	*h = NULL; /* Set the head to NULL */
+	*h = NULL;
 
 	return (size);
 }
