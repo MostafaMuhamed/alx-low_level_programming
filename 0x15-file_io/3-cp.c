@@ -3,8 +3,8 @@
 #include <stdlib.h>
 
 #define BUFFER_SIZE 1024
-char *create_buffer(char *file)
 
+char *create_buffer(char *file);
 void close_file(int fd);
 /**
  * create_buffer - Allocates 1024 bytes for a buffer.
